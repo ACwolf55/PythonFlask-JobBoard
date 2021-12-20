@@ -1,4 +1,4 @@
-from sqlite3.dbapi2 import connect
+from sqlite3 import connect
 from flask import Flask, render_template, g
 import sqlite3
 
@@ -25,6 +25,9 @@ def execute_sql(sql,values=(),commit=False,single=False):
 
 def close_connection(exception):
     connection = getattr(g,'_connection', None)
+    if connection is not None:
+        connection.close()
+
 
 
 
