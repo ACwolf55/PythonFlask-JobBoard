@@ -46,4 +46,4 @@ def job(job_id):
 
 @app.route('/employer/<employer_id>')
 def employer():
-    render_template('employer.html')
+    return render_template('employer.html')
