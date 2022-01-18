@@ -1,3 +1,4 @@
+from site import execusercustomize
 from sqlite3 import connect
 from flask import Flask, render_template, g
 import sqlite3
@@ -45,5 +46,9 @@ def job(job_id):
     return render_template('job.html',job=job)
 
 @app.route('/employer/<employer_id>')
-def employer():
-    return render_template('employer.html')
+def employer(employee_id):
+    employer = execute_sql("SELECT * FROM employer WHERE id=?",[employer_id],single=True)
+
+    employer = execute_sql('SELECT job.id, job.title, job.description, job.salary FROM job JOIN employer ON employer.id = job.employer_id WHERE employer.id = ?',[employer_id])
+
+    return render_template('employer.html', employer=employer,jobs=jobs)
